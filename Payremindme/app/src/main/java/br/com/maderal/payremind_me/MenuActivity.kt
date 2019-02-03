@@ -19,4 +19,12 @@ class MenuActivity : AppCompatActivity() {
         finish()
 
     }
+
+    fun editar(view: View) {
+        val intent = Intent(this, EditarActivity::class.java)
+
+        startActivity(intent)
+        finish()
+
+    }
 }

@@ -77,7 +77,7 @@
 
                 <ImageButton
                         android:layout_width="77dp"
-
+                        android:onClick="editar"
                         android:layout_height="68dp" app:srcCompat="@drawable/ic_border_color_black_48dp"
                         tools:layout_editor_absoluteY="104dp" tools:layout_editor_absoluteX="113dp"
                         android:id="@+id/imageView5"/>
