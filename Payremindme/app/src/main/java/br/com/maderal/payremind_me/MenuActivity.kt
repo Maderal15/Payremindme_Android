@@ -12,19 +12,11 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
     }
 
-    fun cadastro(view: View) {
-        val intent = Intent(this, CadastroActivity::class.java)
+
+
+    fun openPessoas(view: View) {
+        val intent = Intent(this, ListaPessoasActivity::class.java)
 
         startActivity(intent)
-        //finish()
-
-    }
-
-    fun editar(view: View) {
-        val intent = Intent(this, EditarActivity::class.java)
-
-        startActivity(intent)
-        //finish()
-
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import br.com.maderal.payremind_me.R
 import br.com.maderal.payremind_me.model.Person
+import kotlinx.android.synthetic.main.row_person.view.*
 
 
 class PersonAdapter(val listPerson: MutableList<Person>, val deleteListener: OnDeleteListener,
@@ -22,9 +23,9 @@ class PersonAdapter(val listPerson: MutableList<Person>, val deleteListener: OnD
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val personViewHolder = holder as PersonViewHolder
         personViewHolder.bindData(listPerson[position])
-        personViewHolder.view.setOnLongClickListener { l ->
+
+        personViewHolder.view.buttonDelete.setOnClickListener {
             deleteListener.deleteItem(listPerson[position])
-            true
         }
         personViewHolder.view.setOnClickListener {
             editListener.editItem(listPerson[position], position)

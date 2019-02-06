@@ -8,6 +8,7 @@
               tools:context=".CadastroActivity">
 
     <TextView
+            android:id="@+id/textTitulo"
             style="@style/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

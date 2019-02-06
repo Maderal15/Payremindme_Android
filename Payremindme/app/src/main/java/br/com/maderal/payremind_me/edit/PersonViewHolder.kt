@@ -15,7 +15,7 @@ class PersonViewHolder(val view: View): RecyclerView.ViewHolder(view) {
     private val switchAtivo = view.findViewById<Switch>(R.id.switchViewAtivo)
 
     fun bindData(person: Person){
-        textViewCodigo.text = person.codigo
+        textViewCodigo.text = person.codigo.toString()
         textViewNome.text = person.nome
         switchAtivo.isChecked = person.ativo
     }

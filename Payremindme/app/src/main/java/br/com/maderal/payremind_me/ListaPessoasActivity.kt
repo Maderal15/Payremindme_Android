@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import br.com.maderal.payremind_me.api.PayRemindMeAPIService
 import br.com.maderal.payremind_me.edit.*
@@ -17,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
+class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
 
     private val REQUEST_CODE = 101
@@ -42,7 +43,7 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
                 t?.printStackTrace()
                 Toast.makeText(
-                    this@EditarActivity,
+                    this@ListaPessoasActivity,
                     t?.message,
                     Toast.LENGTH_LONG
                 ).show()
@@ -53,34 +54,22 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
                     val personList = response.body()?.content
 
                     if (personList != null) {
-                        personAdapter = PersonAdapter(personList.toMutableList(), this@EditarActivity, this@EditarActivity)
+                        personAdapter = PersonAdapter(personList.toMutableList(), this@ListaPessoasActivity, this@ListaPessoasActivity)
                     }
                     recyclerView.adapter = personAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(this@EditarActivity, LinearLayoutManager.VERTICAL, false)
+                    recyclerView.layoutManager = LinearLayoutManager(this@ListaPessoasActivity, LinearLayoutManager.VERTICAL, false)
 
                 } else {
 
                     Toast.makeText(
-                        this@EditarActivity,
+                        this@ListaPessoasActivity,
                         "Erro ao buscar pessoas",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
         })
-
-
-
-       // setFloatingActionButtonListener()
     }
 
-
-   /* private fun setFloatingActionButtonListener(){
-        floatingActionButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, EditActivity::class.java)
-            intent.putExtra(PERSON_INTENT_EDIT, false)
-            startActivityForResult(intent, REQUEST_CODE)
-        }
-    }*/
 
     override fun deleteItem(person: Person) {
         personAdapter.listPerson.remove(person)
@@ -88,11 +77,16 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     }
 
     override fun editItem(person: Person, index: Int) {
-        val intent = Intent(this@EditarActivity, EditActivity::class.java)
+        val intent = Intent(this, CadastroActivity::class.java)
         intent.putExtra(PERSON_INTENT_EDIT, true)
         intent.putExtra(PERSON_INTENT_OBJECT, person)
         intent.putExtra(PERSON_INTENT_INDEX, index)
         startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    fun openCadastro(view: View) {
+        val intent = Intent(this, CadastroActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

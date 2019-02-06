@@ -5,25 +5,26 @@ import android.os.Parcelable
 
 class Person : Parcelable{
 
-    var codigo: String? = null
+    var codigo: Long = 0
     var nome: String? = null
     var ativo: Boolean = false
 
     constructor() {
-        this.codigo = ""
         this.nome = ""
         this.ativo = false
     }
 
-    constructor(codigo: String, nome: String, ativo: Boolean) {
+    constructor(codigo: Long, nome: String, ativo: Boolean) {
         this.codigo = codigo
         this.nome = nome
         this.ativo = ativo
     }
 
     protected constructor(`in`: Parcel) {
-        codigo = `in`.readString()
+        codigo = `in`.readLong()
         nome = `in`.readString()
+        ativo = `in`.readInt() == 1
+
     }
 
     override fun describeContents(): Int {
@@ -31,8 +32,13 @@ class Person : Parcelable{
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(codigo)
+        dest.writeLong(codigo)
         dest.writeString(nome)
+        if(ativo){
+            dest.writeInt(1)
+        }else{
+            dest.writeInt(0)
+        }
     }
 
     companion object {

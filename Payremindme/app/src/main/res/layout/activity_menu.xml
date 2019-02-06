@@ -29,9 +29,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_padding_top"
                     android:gravity="center"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                 <ImageButton
+                        android:onClick="openPessoas"
                         android:layout_width="77dp"
                         android:layout_height="68dp" app:srcCompat="@drawable/ic_account_circle_black_24dp"
                         tools:layout_editor_absoluteY="104dp" tools:layout_editor_absoluteX="113dp"
@@ -50,21 +51,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/activity_padding_top"
-                    android:orientation="horizontal" >
-
-                <ImageButton
-                        android:layout_width="77dp"
-                        android:onClick="cadastro"
-                        android:layout_height="68dp" app:srcCompat="@drawable/ic_create_new_folder_black_48dp"
-                        tools:layout_editor_absoluteY="104dp" tools:layout_editor_absoluteX="113dp"
-                        android:id="@+id/imageView2"/>
-                <TextView
-                        android:id="@+id/tvIMCDescricao2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_cadastro"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:textSize="23dp"/>
+                    android:orientation="horizontal">
 
             </android.support.design.widget.TextInputLayout>
 
@@ -73,21 +60,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/activity_padding_top"
-                    android:orientation="horizontal" >
-
-                <ImageButton
-                        android:layout_width="77dp"
-                        android:onClick="editar"
-                        android:layout_height="68dp" app:srcCompat="@drawable/ic_border_color_black_48dp"
-                        tools:layout_editor_absoluteY="104dp" tools:layout_editor_absoluteX="113dp"
-                        android:id="@+id/imageView5"/>
-                <TextView
-                        android:id="@+id/tvIMCDescricao5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_editt"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:textSize="23dp"/>
+                    android:orientation="horizontal">
 
             </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/activity_padding_top"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                 <ImageButton
                         android:layout_width="77dp"
@@ -118,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_padding_top"
                     android:gravity="center"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                 <ImageButton
                         android:layout_width="77dp"

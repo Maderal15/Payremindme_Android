@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         this.payRemindMeAPIService = PayRemindMeAPIService(prefs)
     }
 
-    fun logar() {
+    fun logar(view: View) {
 
         val username = userName.text.toString()
         val password = password.text.toString()

@@ -8,14 +8,27 @@
 
     <TextView
             android:id="@+id/textViewCodigo"
-            style="@style/editText" android:layout_width="23dp"/>
+            style="@style/editText"
+            android:layout_height="match_parent"
+            android:layout_width="23dp"/>
 
     <TextView
             android:id="@+id/textViewNome"
-            style="@style/editText" android:layout_width="211dp"/>
+            style="@style/editText"
+            android:layout_height="match_parent"
+            android:layout_width="156dp"/>
 
     <Switch
             android:id="@+id/switchViewAtivo"
-            style="@style/editText"/>
+            style="@style/editText"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"/>
+
+    <ImageButton
+            android:contentDescription="@string/txt_editt"
+            android:id="@+id/buttonDelete"
+            android:src="@android:drawable/ic_menu_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
 </LinearLayout>

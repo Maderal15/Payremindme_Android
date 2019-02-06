@@ -7,10 +7,10 @@
     <string name="botaoLogin">Entre</string>
     <string name="txt_menu">Menu</string>
     <string name="txt_sobre">Sobre</string>
-    <string name="txt_cadastro">Cadastro de pagamento</string>
+    <string name="txt_cadastro">Adicionar Pessoa</string>
     <string name="txt_pessoas">Pessoa</string>
     <string name="txt_logout">Logout</string>
-    <string name="txt_editt">Editar</string>
+    <string name="txt_editt">Editar Pessoa</string>
     <string name="txt_name">Nome</string>
     <string name="txt_address">Endereço</string>
     <string name="txt_number">Número</string>
