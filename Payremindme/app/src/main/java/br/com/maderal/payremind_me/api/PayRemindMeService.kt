@@ -109,22 +109,16 @@ class PayRemindMeService(sharedPreferences: SharedPreferences?){
             JWTVerifier("ESSA CHAVE NAO SERA QUEBRADA ASDASDASASDASD FDIAJFDIJ").verify(tokenCredentials.access_token);
         }catch (ex: JWTVerifyException){
             // token expirado. recuperar novo token
-            this.refreshAccessToken().enqueue(object :
-                Callback<TokenCredentials> {
-                override fun onFailure(call: Call<TokenCredentials>?, t: Throwable?) {
-                    t?.printStackTrace()
-                }
+            System.out.println("access token invalido.. recuperando novo token...")
 
-                override fun onResponse(call: Call<TokenCredentials>?, response: Response<TokenCredentials>?) {
-                    if (response?.isSuccessful ?: false) {
-                        tokenCredentials = response?.body()
-                        prefs?.edit()?.putString("tokenCredentials",Gson().toJson(tokenCredentials))?.apply()
-
-                    } else {
-                        System.err.println("Falha ao renovar token")
-                    }
-                }
-            })
+            val response = this.refreshAccessToken().execute();
+            if (response?.isSuccessful ?: false) {
+                tokenCredentials = response?.body()
+                prefs?.edit()?.putString("tokenCredentials",Gson().toJson(tokenCredentials))?.apply()
+                System.out.println("novo access token recuperado.")
+            } else {
+                System.err.println("Falha ao renovar token")
+            }
         }
 
         return tokenCredentials.access_token
