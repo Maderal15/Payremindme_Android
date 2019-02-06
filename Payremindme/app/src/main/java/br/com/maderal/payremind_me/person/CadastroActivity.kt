@@ -1,4 +1,4 @@
-package br.com.maderal.payremind_me
+package br.com.maderal.payremind_me.person
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,9 +7,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
-import br.com.maderal.payremind_me.edit.PERSON_INTENT_EDIT
-import br.com.maderal.payremind_me.edit.PERSON_INTENT_INDEX
-import br.com.maderal.payremind_me.edit.PERSON_INTENT_OBJECT
+import br.com.maderal.payremind_me.R
+import br.com.maderal.payremind_me.model.PERSON_INTENT_EDIT
+import br.com.maderal.payremind_me.model.PERSON_INTENT_INDEX
+import br.com.maderal.payremind_me.model.PERSON_INTENT_OBJECT
 import br.com.maderal.payremind_me.model.Person
 import kotlinx.android.synthetic.main.activity_cadastro.*
 

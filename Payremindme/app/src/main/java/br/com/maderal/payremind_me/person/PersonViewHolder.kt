@@ -1,4 +1,4 @@
-package br.com.maderal.payremind_me.edit
+package br.com.maderal.payremind_me.person
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

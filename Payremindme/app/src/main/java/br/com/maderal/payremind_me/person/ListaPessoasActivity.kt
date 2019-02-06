@@ -1,4 +1,4 @@
-package br.com.maderal.payremind_me
+package br.com.maderal.payremind_me.person
 
 import android.app.Activity
 import android.content.Intent
@@ -8,10 +8,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import br.com.maderal.payremind_me.R
 import br.com.maderal.payremind_me.api.PayRemindMeAPIService
-import br.com.maderal.payremind_me.edit.*
-import br.com.maderal.payremind_me.model.Person
-import br.com.maderal.payremind_me.model.PersonList
+import br.com.maderal.payremind_me.model.*
 import kotlinx.android.synthetic.main.activity_lista.*
 import retrofit2.Call
 import retrofit2.Callback

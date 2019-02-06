@@ -9,7 +9,7 @@ import br.com.maderal.payremind_me.model.TokenCredentials
 import com.google.gson.Gson
 
 
-class SplashActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val SPLASH_TIME = 3000;
 
@@ -27,10 +27,10 @@ class SplashActivity : AppCompatActivity() {
             val tokenCredentials = Gson().fromJson(json,TokenCredentials::class.java)
 
             if(tokenCredentials == null){
-                val mySuperIntent = Intent(this@SplashActivity, LoginActivity::class.java)
+                val mySuperIntent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(mySuperIntent)
             }else{
-                val mySuperIntent = Intent(this@SplashActivity, MenuActivity::class.java)
+                val mySuperIntent = Intent(this@MainActivity, MenuActivity::class.java)
                 startActivity(mySuperIntent)
             }
             finish()
