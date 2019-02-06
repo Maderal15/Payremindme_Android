@@ -1,26 +1,26 @@
-package br.com.maderal.payremind_me.edit
+package br.com.maderal.payremind_me.model
 
 import android.os.Parcel
 import android.os.Parcelable
 
 class Person : Parcelable{
 
-    var firstName: String? = null
-    var lastName: String? = null
+    var codigo: String? = null
+    var nome: String? = null
 
     constructor() {
-        lastName = ""
-        firstName = lastName
+        nome = ""
+        codigo = nome
     }
 
     constructor(firstName: String, lastName: String) {
-        this.firstName = firstName
-        this.lastName = lastName
+        this.codigo = firstName
+        this.nome = lastName
     }
 
     protected constructor(`in`: Parcel) {
-        firstName = `in`.readString()
-        lastName = `in`.readString()
+        codigo = `in`.readString()
+        nome = `in`.readString()
     }
 
     override fun describeContents(): Int {
@@ -28,8 +28,8 @@ class Person : Parcelable{
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(firstName)
-        dest.writeString(lastName)
+        dest.writeString(codigo)
+        dest.writeString(nome)
     }
 
     companion object {

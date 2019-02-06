@@ -1,10 +1,9 @@
 package br.com.maderal.payremind_me.edit
 
-import android.app.Activity
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import br.com.maderal.payremind_me.R
+import br.com.maderal.payremind_me.model.Person
 import kotlinx.android.synthetic.main.activity_cadastro.*
 
 
@@ -24,8 +23,8 @@ class EditActivity : AppCompatActivity() {
     private fun setButtonEditListener(){
         //Essaa parte vc set as variaesi quando precisado no butao
         btbm_cadastro.setOnClickListener {
-        /*    person.firstName = editTextFirstName.text.toString()
-            person.lastName = editTextLastName.text.toString()
+        /*    person.codigo = editTextFirstName.text.toString()
+            person.nome = editTextLastName.text.toString()
 
             val intent = Intent()
             val bundle = Bundle()
@@ -45,8 +44,8 @@ class EditActivity : AppCompatActivity() {
         if(isEdit){
             index = intent.getIntExtra(PERSON_INTENT_INDEX, -1)
             person = intent.getParcelableExtra(PERSON_INTENT_OBJECT)
-           // editTextFirstNam.setText(person.firstName)
-            //editTextLastName.setText(person.lastName)
+           // editTextFirstNam.setText(person.codigo)
+            //editTextLastName.setText(person.nome)
             btbm_cadastro.text = getString(R.string.txt_editt)
         }else{
             btbm_cadastro.text = getString(R.string.txt_cadastro)

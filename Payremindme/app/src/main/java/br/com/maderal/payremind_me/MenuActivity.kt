@@ -16,7 +16,7 @@ class MenuActivity : AppCompatActivity() {
         val intent = Intent(this, CadastroActivity::class.java)
 
         startActivity(intent)
-        finish()
+        //finish()
 
     }
 
@@ -24,7 +24,7 @@ class MenuActivity : AppCompatActivity() {
         val intent = Intent(this, EditarActivity::class.java)
 
         startActivity(intent)
-        finish()
+        //finish()
 
     }
 }

@@ -4,8 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import br.com.maderal.payremind_me.R
-import br.com.maderal.payremind_me.edit.OnDeleteListener
-import br.com.maderal.payremind_me.edit.OnEditListener
+import br.com.maderal.payremind_me.model.Person
 
 
 class PersonAdapter(val listPerson: MutableList<Person>, val deleteListener: OnDeleteListener,

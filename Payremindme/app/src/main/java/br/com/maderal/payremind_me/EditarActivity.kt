@@ -2,11 +2,21 @@ package br.com.maderal.payremind_me
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
+import br.com.maderal.payremind_me.api.PayRemindMeService
 import br.com.maderal.payremind_me.edit.*
+import br.com.maderal.payremind_me.model.Person
+import br.com.maderal.payremind_me.model.PersonList
+import br.com.maderal.payremind_me.model.TokenCredentials
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_lista.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
@@ -16,24 +26,64 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
     private lateinit var personAdapter: PersonAdapter
 
+    private var payRemindMeService : PayRemindMeService? = null
+    private var PREFS_FILENAME = "payremind.prefs"
+    private var prefs: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista)
 
-        val listPerson = mutableListOf(Person("f1", "f2"),
-            Person("f2", "l2"),
-            Person("f3", "l3"),
-            Person("F4", "L4"),
-            Person("f5", "l5"),
-            Person("f6", "l6"),
-            Person("F7", "L7"),
-            Person("f8", "l8"),
-            Person("f9", "l9"),
-            Person("F10", "L10"))
+        prefs = this.getSharedPreferences(PREFS_FILENAME, 0)
+        this.payRemindMeService = PayRemindMeService(prefs)
 
-        personAdapter = PersonAdapter(listPerson, this, this)
-        recyclerView.adapter = personAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        val listPerson = mutableListOf(
+//            Person("f1", "f2"),
+//            Person("f2", "l2"),
+//            Person("f3", "l3"),
+//            Person("F4", "L4"),
+//            Person("f5", "l5"),
+//            Person("f6", "l6"),
+//            Person("F7", "L7"),
+//            Person("f8", "l8"),
+//            Person("f9", "l9"),
+//            Person("F10", "L10")
+//        )
+
+        this.payRemindMeService?.getPessoas()?.enqueue(object :
+            Callback<PersonList> {
+            override fun onFailure(call: Call<PersonList>?, t: Throwable?) {
+
+                t?.printStackTrace()
+                Toast.makeText(
+                    this@EditarActivity,
+                    t?.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onResponse(call: Call<PersonList>?, response: Response<PersonList>?) {
+                if (response?.isSuccessful ?: false) {
+                    val personList = response?.body()?.content
+
+                    if (personList != null) {
+                        personAdapter = PersonAdapter(personList.toMutableList(), this@EditarActivity, this@EditarActivity)
+                    }
+                    recyclerView.adapter = personAdapter
+                    recyclerView.layoutManager = LinearLayoutManager(this@EditarActivity, LinearLayoutManager.VERTICAL, false)
+
+                } else {
+
+                    Toast.makeText(
+                        this@EditarActivity,
+                        "Erro ao buscar pessoas",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
 
        // setFloatingActionButtonListener()
     }
