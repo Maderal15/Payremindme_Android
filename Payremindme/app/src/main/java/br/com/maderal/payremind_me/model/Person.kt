@@ -7,15 +7,18 @@ class Person : Parcelable{
 
     var codigo: String? = null
     var nome: String? = null
+    var ativo: Boolean = false
 
     constructor() {
-        nome = ""
-        codigo = nome
+        this.codigo = ""
+        this.nome = ""
+        this.ativo = false
     }
 
-    constructor(firstName: String, lastName: String) {
-        this.codigo = firstName
-        this.nome = lastName
+    constructor(codigo: String, nome: String, ativo: Boolean) {
+        this.codigo = codigo
+        this.nome = nome
+        this.ativo = ativo
     }
 
     protected constructor(`in`: Parcel) {

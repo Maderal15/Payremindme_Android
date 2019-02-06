@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import br.com.maderal.payremind_me.api.PayRemindMeService
 import br.com.maderal.payremind_me.model.TokenCredentials
 import com.google.gson.Gson
 

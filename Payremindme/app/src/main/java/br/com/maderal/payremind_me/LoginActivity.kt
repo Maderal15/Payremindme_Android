@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import br.com.maderal.payremind_me.api.PayRemindMeService
-import br.com.maderal.payremind_me.model.PersonList
+import br.com.maderal.payremind_me.api.PayRemindMeAPIService
 import br.com.maderal.payremind_me.model.TokenCredentials
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
@@ -20,7 +19,7 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
-    private var payRemindMeService : PayRemindMeService? = null
+    private var payRemindMeAPIService : PayRemindMeAPIService? = null
     private var PREFS_FILENAME = "payremind.prefs"
     private var prefs: SharedPreferences? = null
 
@@ -28,16 +27,16 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         prefs = this.getSharedPreferences(PREFS_FILENAME, 0)
-        this.payRemindMeService = PayRemindMeService(prefs)
+        this.payRemindMeAPIService = PayRemindMeAPIService(prefs)
     }
 
-    fun logar(view: View) {
+    fun logar() {
 
         val username = userName.text.toString()
         val password = password.text.toString()
 
 
-        this.payRemindMeService?.login(username,password)?.enqueue(object : Callback<TokenCredentials> {
+        this.payRemindMeAPIService?.login(username,password)?.enqueue(object : Callback<TokenCredentials> {
             override fun onFailure(call: Call<TokenCredentials>?, t: Throwable?) {
 
                 t?.printStackTrace()

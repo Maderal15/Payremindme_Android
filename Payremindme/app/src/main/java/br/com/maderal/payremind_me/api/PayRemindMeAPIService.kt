@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class PayRemindMeService(sharedPreferences: SharedPreferences?){
+class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
 
     private var prefs: SharedPreferences? = null;
     var API_URL = "http://ec2-18-231-89-75.sa-east-1.compute.amazonaws.com:8080";

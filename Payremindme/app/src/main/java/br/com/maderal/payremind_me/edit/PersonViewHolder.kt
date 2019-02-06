@@ -2,6 +2,7 @@ package br.com.maderal.payremind_me.edit
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Switch
 import android.widget.TextView
 import br.com.maderal.payremind_me.R
 import br.com.maderal.payremind_me.model.Person
@@ -9,11 +10,13 @@ import br.com.maderal.payremind_me.model.Person
 
 class PersonViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
-    private val textViewFirstName = view.findViewById<TextView>(R.id.textViewFirstName)
-    private val textViewLastName = view.findViewById<TextView>(R.id.textViewLastName)
+    private val textViewCodigo = view.findViewById<TextView>(R.id.textViewCodigo)
+    private val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
+    private val switchAtivo = view.findViewById<Switch>(R.id.switchViewAtivo)
 
     fun bindData(person: Person){
-        textViewFirstName.text = person.codigo
-        textViewLastName.text = person.nome
+        textViewCodigo.text = person.codigo
+        textViewNome.text = person.nome
+        switchAtivo.isChecked = person.ativo
     }
 }

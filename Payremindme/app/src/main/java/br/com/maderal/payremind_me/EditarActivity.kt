@@ -7,12 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
-import br.com.maderal.payremind_me.api.PayRemindMeService
+import br.com.maderal.payremind_me.api.PayRemindMeAPIService
 import br.com.maderal.payremind_me.edit.*
 import br.com.maderal.payremind_me.model.Person
 import br.com.maderal.payremind_me.model.PersonList
-import br.com.maderal.payremind_me.model.TokenCredentials
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_lista.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +24,7 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
     private lateinit var personAdapter: PersonAdapter
 
-    private var payRemindMeService : PayRemindMeService? = null
+    private var payRemindMeAPIService : PayRemindMeAPIService? = null
     private var PREFS_FILENAME = "payremind.prefs"
     private var prefs: SharedPreferences? = null
 
@@ -35,10 +33,10 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         setContentView(R.layout.activity_lista)
 
         prefs = this.getSharedPreferences(PREFS_FILENAME, 0)
-        this.payRemindMeService = PayRemindMeService(prefs)
+        this.payRemindMeAPIService = PayRemindMeAPIService(prefs)
 
 
-        this.payRemindMeService?.getPessoas()?.enqueue(object :
+        this.payRemindMeAPIService?.getPessoas()?.enqueue(object :
             Callback<PersonList> {
             override fun onFailure(call: Call<PersonList>?, t: Throwable?) {
 
