@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         val password = password.text.toString()
 
 
-        this.payRemindMeService?.getAccessToken(username,password)?.enqueue(object : Callback<TokenCredentials> {
+        this.payRemindMeService?.login(username,password)?.enqueue(object : Callback<TokenCredentials> {
             override fun onFailure(call: Call<TokenCredentials>?, t: Throwable?) {
 
                 t?.printStackTrace()
@@ -68,6 +68,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
 }

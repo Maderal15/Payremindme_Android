@@ -37,18 +37,6 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         prefs = this.getSharedPreferences(PREFS_FILENAME, 0)
         this.payRemindMeService = PayRemindMeService(prefs)
 
-//        val listPerson = mutableListOf(
-//            Person("f1", "f2"),
-//            Person("f2", "l2"),
-//            Person("f3", "l3"),
-//            Person("F4", "L4"),
-//            Person("f5", "l5"),
-//            Person("f6", "l6"),
-//            Person("F7", "L7"),
-//            Person("f8", "l8"),
-//            Person("f9", "l9"),
-//            Person("F10", "L10")
-//        )
 
         this.payRemindMeService?.getPessoas()?.enqueue(object :
             Callback<PersonList> {
@@ -62,9 +50,9 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
                 ).show()
             }
 
-            override fun onResponse(call: Call<PersonList>?, response: Response<PersonList>?) {
-                if (response?.isSuccessful ?: false) {
-                    val personList = response?.body()?.content
+            override fun onResponse(call: Call<PersonList>?, response: Response<PersonList>?) =
+                if (response?.isSuccessful == true) {
+                    val personList = response.body()?.content
 
                     if (personList != null) {
                         personAdapter = PersonAdapter(personList.toMutableList(), this@EditarActivity, this@EditarActivity)
@@ -80,7 +68,6 @@ class EditarActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
         })
 
 

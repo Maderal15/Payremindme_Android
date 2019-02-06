@@ -32,9 +32,9 @@ class SessionCookieJar(sharedPreferences: SharedPreferences?) : CookieJar {
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
 
-        if (!url.encodedPath().endsWith("/oauth/token")) {
+        if (url.encodedPath().endsWith("/oauth/token")) {
 
-            if(cookies != null){
+            if(cookies == null){
                 val jsonCookieRefreshToken = prefs?.getString("cookiesRefreshToken",null)
                 val cookieType = object : TypeToken<List<Cookie>>() {}.type
                 cookies = Gson().fromJson<List<Cookie>>(jsonCookieRefreshToken, cookieType)
