@@ -20,4 +20,10 @@ class MenuActivity : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+    fun openSobre(view: View) {
+        val intent = Intent(this, SobreActivity::class.java)
+
+        startActivity(intent)
+    }
 }

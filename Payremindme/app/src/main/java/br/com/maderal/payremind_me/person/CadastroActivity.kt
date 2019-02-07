@@ -26,12 +26,12 @@ class CadastroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cadastro)
 
         //String array.
-        val estados =  arrayOf("Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará",
+     /*   val estados =  arrayOf("Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará",
             "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão",
             "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Maranhão",
           "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
-            "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins")
-        //val estados = arrayOf(R.array.arry_estados)
+            "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins")*/
+        val estados = resources.getStringArray(R.array.arry_estados)
 
         //Adapter for spinner
         mySpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, estados)

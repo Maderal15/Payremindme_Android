@@ -53,24 +53,6 @@
                     android:layout_marginTop="@dimen/activity_padding_top"
                     android:orientation="horizontal">
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/activity_padding_top"
-                    android:orientation="horizontal">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/activity_padding_top"
-                    android:orientation="horizontal">
-
                 <ImageButton
                         android:layout_width="77dp"
                         android:layout_height="68dp" app:srcCompat="@drawable/ic_power_settings_new_black_48dp"
@@ -95,7 +77,7 @@
 
                 <ImageButton
                         android:layout_width="77dp"
-
+                        android:onClick="openSobre"
                         android:layout_height="68dp" app:srcCompat="@drawable/ic_mouse_black_36dp"
                         tools:layout_editor_absoluteY="104dp" tools:layout_editor_absoluteX="113dp"
                         android:id="@+id/imageView4"/>
