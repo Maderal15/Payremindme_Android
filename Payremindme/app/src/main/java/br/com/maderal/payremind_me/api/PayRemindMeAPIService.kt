@@ -1,6 +1,7 @@
 package br.com.maderal.payremind_me.api
 
 import android.content.SharedPreferences
+import br.com.maderal.payremind_me.model.Person
 import br.com.maderal.payremind_me.model.PersonList
 import br.com.maderal.payremind_me.model.TokenCredentials
 import com.auth0.jwt.JWTVerifier
@@ -12,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.util.*
 
 class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
@@ -23,17 +25,9 @@ class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
         prefs = sharedPreferences
     }
 
-
     fun login(username: String, password: String): Call<TokenCredentials>{
 
-        val okhttp = OkHttpClient.Builder().addInterceptor { chain ->
-            val request = chain.request().newBuilder()
-
-            request.addHeader("Content-Type", "application/x-www-form-urlencoded")
-            request.addHeader("Authorization", "Basic bW9iaWxlOm0wYjFsMzA=")
-            chain.proceed(request.build())
-        }.cookieJar(SessionCookieJar(prefs)).build()
-
+        val okhttp = getClientHeadersForLogin();
 
         val retrofit = Retrofit.Builder()
             .baseUrl(API_URL)
@@ -44,24 +38,39 @@ class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
         val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
 
         val params = HashMap<String, String>()
-        params["username"] = "daniesouza@gmail.com"
-        params["password"] = "admin"
+        params["username"] = username
+        params["password"] = password
         params["grant_type"] = "password"
 
         return payRemindMeAPI.getAccessToken(params);
     }
 
-    // refresh token usando o cookie com refresh_token oculto
-    private fun refreshAccessToken(): Call<TokenCredentials>{
+    fun logout(): Call<Void>{
 
         val okhttp = OkHttpClient.Builder().addInterceptor { chain ->
             val request = chain.request().newBuilder()
 
-            request.addHeader("Content-Type", "application/x-www-form-urlencoded")
-            request.addHeader("Authorization", "Basic bW9iaWxlOm0wYjFsMzA=")
+            request.addHeader("Content-Type", "application/json")
+            request.addHeader("Authorization", "Bearer "+getAccessToken() )
             chain.proceed(request.build())
         }.cookieJar(SessionCookieJar(prefs)).build()
 
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.revokeToken();
+    }
+
+
+    // refresh token usando o cookie com refresh_token oculto
+    private fun refreshAccessToken(): Call<TokenCredentials>{
+
+        val okhttp = getClientHeadersForLogin();
 
         val retrofit = Retrofit.Builder()
             .baseUrl(API_URL)
@@ -77,28 +86,26 @@ class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
         return payRemindMeAPI.refreshAccessToken(params);
     }
 
+    private fun getClientHeadersForLogin(): OkHttpClient {
 
-    // refresh token usando o cookie com refresh_token oculto
-    fun getPessoas(): Call<PersonList>{
+        return OkHttpClient.Builder().addInterceptor { chain ->
+            val request = chain.request().newBuilder()
 
-        val okhttp = OkHttpClient.Builder().addInterceptor { chain ->
+            request.addHeader("Content-Type", "application/x-www-form-urlencoded")
+            request.addHeader("Authorization", "Basic YW5ndWxhcjpAbmd1bEByMA==")
+            chain.proceed(request.build())
+        }.cookieJar(SessionCookieJar(prefs)).build()
+    }
+
+    private fun getClientHeaders(): OkHttpClient {
+
+        return   OkHttpClient.Builder().addInterceptor { chain ->
             val request = chain.request().newBuilder()
 
             request.addHeader("Content-Type", "application/json")
             request.addHeader("Authorization", "Bearer "+getAccessToken() )
             chain.proceed(request.build())
         }.build()
-
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okhttp)
-            .build()
-
-        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
-
-        return payRemindMeAPI.getPessoas();
     }
 
     private fun getAccessToken() : String{
@@ -112,15 +119,94 @@ class PayRemindMeAPIService(sharedPreferences: SharedPreferences?){
             System.out.println("access token invalido.. recuperando novo token...")
 
             val response = this.refreshAccessToken().execute();
-            if (response?.isSuccessful ?: false) {
-                tokenCredentials = response?.body()
+            if (response?.isSuccessful == true) {
+                tokenCredentials = response.body()
                 prefs?.edit()?.putString("tokenCredentials",Gson().toJson(tokenCredentials))?.apply()
                 System.out.println("novo access token recuperado.")
             } else {
-                System.err.println("Falha ao renovar token")
+
+                //TODO um dia melhorar esse ponto e redirecionar para a tela de login
+                prefs?.edit()?.putString("tokenCredentials",null)?.apply()
+                System.err.println("Falha ao renovar token. por favor faca o login novamente. O app sera fechado")
+                throw Throwable("Falha ao renovar token. por favor faca o login novamente. O app sera fechado")
             }
         }
-
         return tokenCredentials.access_token
+    }
+
+
+    fun getPersons(): Call<PersonList>{
+
+        val okhttp = getClientHeaders();
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.getPessoas();
+    }
+
+    fun addPerson(person: Person): Call<Person>{
+
+        val okhttp = getClientHeaders();
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.addPerson(person)
+    }
+
+    fun updatePerson(person: Person): Call<Person>{
+
+        val okhttp = getClientHeaders();
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.updatePerson(person.codigo,person)
+    }
+
+    fun changePersonStatus(person: Person): Call<Void>{
+
+        val okhttp = getClientHeaders();
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.changePersonStatus(person.codigo,!person.ativo)
+    }
+
+    fun deletePerson(person: Person): Call<Void>{
+
+        val okhttp = getClientHeaders();
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttp)
+            .build()
+
+        val payRemindMeAPI = retrofit.create(PayRemindMeAPI::class.java)
+
+        return payRemindMeAPI.deletePerson(person.codigo)
     }
 }

@@ -12,13 +12,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/txt_danilo"/>
+            android:text="@string/txt_daniel"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/txt_daniel"/>
+            android:text="@string/txt_danilo"/>
 
     <TextView
             android:layout_width="wrap_content"

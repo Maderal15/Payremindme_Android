@@ -40,7 +40,8 @@
             <EditText  android:id="@+id/number"
                         style="@style/editText"
                         android:hint="@string/txt_number"
-                        android:inputType="text"/>
+                        android:maxLength="5"
+                        android:inputType="number"/>
 
             <EditText  android:id="@+id/complement"
                        style="@style/editText"
@@ -55,11 +56,13 @@
             <EditText  android:id="@+id/zip_code"
                        style="@style/editText"
                        android:hint="@string/txt_zip_code"
-                       android:inputType="text"/>
+                       android:maxLength="8"
+                       android:inputType="number"/>
 
             <EditText  android:id="@+id/city"
                        style="@style/editText"
                        android:hint="@string/txt_city"
+                       android:enabled="false"
                        android:inputType="text"/>
 
             <TextView
@@ -70,7 +73,7 @@
 
             <Spinner
                     style="@style/editText"
-                    android:id="@+id/mySpinner"
+                    android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

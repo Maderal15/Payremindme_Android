@@ -19,7 +19,6 @@ import retrofit2.Response
 
 class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
-
     private val REQUEST_CODE = 101
 
     private lateinit var personAdapter: PersonAdapter
@@ -36,7 +35,7 @@ class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListen
         this.payRemindMeAPIService = PayRemindMeAPIService(prefs)
 
 
-        this.payRemindMeAPIService?.getPessoas()?.enqueue(object :
+        this.payRemindMeAPIService?.getPersons()?.enqueue(object :
             Callback<PersonList> {
             override fun onFailure(call: Call<PersonList>?, t: Throwable?) {
 
@@ -48,7 +47,7 @@ class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListen
                 ).show()
             }
 
-            override fun onResponse(call: Call<PersonList>?, response: Response<PersonList>?) =
+            override fun onResponse(call: Call<PersonList>?, response: Response<PersonList>?) {
                 if (response?.isSuccessful == true) {
                     val personList = response.body()?.content
 
@@ -66,13 +65,47 @@ class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListen
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            }
         })
     }
 
 
     override fun deleteItem(person: Person) {
-        personAdapter.listPerson.remove(person)
-        personAdapter.notifyDataSetChanged()
+
+        this.payRemindMeAPIService?.deletePerson(person)?.enqueue(object :
+            Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+
+                t?.printStackTrace()
+                Toast.makeText(
+                    this@ListaPessoasActivity,
+                    t?.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if (response?.isSuccessful == true) {
+                    personAdapter.listPerson.remove(person)
+                    Toast.makeText(
+                        this@ListaPessoasActivity,
+                        "Pessoa deletada.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+
+                    Toast.makeText(
+                        this@ListaPessoasActivity,
+                        "Erro ao deletar pessoa",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                personAdapter.notifyDataSetChanged()
+            }
+        })
+
     }
 
     override fun editItem(person: Person, index: Int) {
@@ -83,9 +116,49 @@ class ListaPessoasActivity : AppCompatActivity(), OnDeleteListener, OnEditListen
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+    override fun changeStatus(person: Person, index: Int) {
+
+        this.payRemindMeAPIService?.changePersonStatus(person)?.enqueue(object :
+            Callback<Void> {
+            override fun onFailure(call: Call<Void>?, t: Throwable?) {
+
+                t?.printStackTrace()
+                Toast.makeText(
+                    this@ListaPessoasActivity,
+                    t?.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                if (response?.isSuccessful == true) {
+                    person.ativo = !person.ativo
+                    Toast.makeText(
+                        this@ListaPessoasActivity,
+                        "Pessoa " + if (person.ativo) "Ativada" else "Desativada",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+
+                    Toast.makeText(
+                        this@ListaPessoasActivity,
+                        "Erro ao alterar status da pessoa",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                personAdapter.notifyDataSetChanged()
+            }
+        })
+
+
+
+    }
+
     fun openCadastro(view: View) {
         val intent = Intent(this, CadastroActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

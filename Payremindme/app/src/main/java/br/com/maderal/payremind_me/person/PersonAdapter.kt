@@ -30,5 +30,9 @@ class PersonAdapter(val listPerson: MutableList<Person>, val deleteListener: OnD
         personViewHolder.view.setOnClickListener {
             editListener.editItem(listPerson[position], position)
         }
+
+        personViewHolder.view.switchViewAtivo.setOnClickListener {
+            editListener.changeStatus(listPerson[position], position)
+        }
     }
 }
