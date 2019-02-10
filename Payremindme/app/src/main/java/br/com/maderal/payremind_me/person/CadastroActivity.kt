@@ -129,9 +129,15 @@ class CadastroActivity : AppCompatActivity() {
                     ).show()
                 }
 
-                override fun onResponse(call: Call<Person>?, response: Response<Person>?) {
+                override fun onResponse(call: Call<Person>?, response: Response<Person>?) =
                     if (response?.isSuccessful == true) {
                         person.ativo = !person.ativo
+                        val personDB = response.body()
+
+                        person.codigo = if(personDB?.codigo != null) {
+                            personDB.codigo
+                        } else 0
+
                         Toast.makeText(
                             this@CadastroActivity,
                             "Pessoa adicionada",
@@ -155,7 +161,6 @@ class CadastroActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
             })
         }
 
