@@ -19,8 +19,8 @@
     <string name="txt_zip_code">Zip code</string>
     <string name="txt_city">City</string>
     <string name="txt_state">State</string>
+    <string name="txt_daniel" translatable="false">Daniel Souza de Lima RM331883</string>
     <string name="txt_danilo" translatable="false">Danilo Maderal Rodrigues RM330618</string>
-    <string name="txt_daniel" translatable="false">Daniel Souza Lima RM331883</string>
     <string name="txt_luiz" translatable="false">Luiz Felipe Moreira Amaral RM330342</string>
 
 

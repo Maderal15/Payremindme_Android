@@ -20,11 +20,9 @@
     <string name="txt_state">Estado</string>
     <string name="txt_active">Ativo</string>
     <string name="txt_neighborhood">Bairro</string>
-
+    <string name="txt_daniel" translatable="false">Daniel Souza de Lima RM331883</string>
     <string name="txt_danilo" translatable="false">Danilo Maderal Rodrigues RM330618</string>
-    <string name="txt_daniel" translatable="false">Daniel Souza Lima RM331883</string>
-    <string name="txt_luiz" translatable="false">Luiz Felipe Moreira Amaral RM330342</string>
-
+    <string name="txt_luiz"   translatable="false">Luiz Felipe Moreira Amaral RM330342</string>
 
 
 

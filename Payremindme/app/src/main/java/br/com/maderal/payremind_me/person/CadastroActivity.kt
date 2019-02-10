@@ -131,9 +131,7 @@ class CadastroActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Person>?, response: Response<Person>?) =
                     if (response?.isSuccessful == true) {
-                        person.ativo = !person.ativo
                         val personDB = response.body()
-
                         person.codigo = if(personDB?.codigo != null) {
                             personDB.codigo
                         } else 0
